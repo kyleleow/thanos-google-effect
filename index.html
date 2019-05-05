@@ -21,9 +21,11 @@
       </div>   
 
     <script> 
-    
+    var imageDataArray = [];
+
     //Reset
     $('#reset-button').click(function() {
+      imageDataArray = [];
       $('.content').children().show();
     });
 
@@ -45,11 +47,15 @@
     }
 
     //Image animation
-    var imageDataArray = [];
     var canvasCount = 35;
     $("#start-btn").click(function(){
       
-      html2canvas($(".content")[0]).then(canvas => {
+      //to-do: fix image tainted issue in chrome, code below does not work
+      // html2canvasOptions = {
+      //   allowTaint: true
+      // };
+
+      html2canvas($(".content")[0], html2canvasOptions).then(canvas => {
         //capture all div data as image
         ctx = canvas.getContext("2d");
         var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -84,6 +90,7 @@
         });
       });
     });
+
     function weightedRandomDistrib(peak) {
       var prob = [], seq = [];
       for(let i=0;i<canvasCount;i++) {
@@ -91,7 +98,8 @@
         seq.push(i);
       }
       return chance.weighted(seq, prob);
-    }
+    };
+
     function animateBlur(elem,radius,duration) {
       var r =0;
       $({rad:0}).animate({rad:radius}, {
@@ -103,7 +111,8 @@
               });
           }
       });
-    }
+    };
+
     function animateTransform(elem,sx,sy,angle,duration) {
       var td = tx = ty =0;
       $({x: 0, y:0, deg:0}).animate({x: sx, y:sy, deg:angle}, {
@@ -121,7 +130,8 @@
               });
           }
       });
-    }
+    };
+
     function createBlankImageData(imageData) {
       for(let i=0;i<canvasCount;i++)
       {
@@ -131,7 +141,8 @@
         }
         imageDataArray.push(arr);
       }
-    }
+    };
+
     function newCanvasFromImageData(imageDataArray ,w , h) {
       var canvas = document.createElement('canvas');
           canvas.width = w;
@@ -140,7 +151,7 @@
           tempCtx.putImageData(new ImageData(imageDataArray, w , h), 0, 0);
           
       return canvas;
-    }
+    };
     </script>
     </body>
 </html>
