@@ -51,9 +51,9 @@
     $("#start-btn").click(function(){
       
       //to-do: fix image tainted issue in chrome, code below does not work
-      // html2canvasOptions = {
-      //   allowTaint: true
-      // };
+      html2canvasOptions = {
+        allowTaint: true
+      };
 
       html2canvas($(".content")[0], html2canvasOptions).then(canvas => {
         //capture all div data as image
