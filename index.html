@@ -3,20 +3,48 @@
     <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="html2canvas.min.js"></script>
-    <script src="chance.min.js"></script>
-    <script src="jquery-2.1.4.js"></script>
-    <script src="jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://chancejs.com/chance.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
     </head>
     <body>
 
+      <div>
+        <button id="reset-button">Reset</button>
+      </div>
+
       <div class="content">
-        <img src="burger.png" height="600">
+        <input type="file" id="image-input" accept="image/*">
+        <img id="image-content" src="asset/ironman.png" height="600">
         <button id="start-btn">Snap!</button>
       </div>   
 
     <script> 
     
+    //Reset
+    $('#reset-button').click(function() {
+      $('.content').children().show();
+    });
+
+    //Image input
+    $('#image-input').change(function() {
+      displayImage(this);
+    });
+
+    function displayImage(input) {
+      if (input.files && input.files[0]) {
+        var fileReader = new FileReader();
+
+        fileReader.onload = function(e) {
+          $('#image-content').attr('src', e.target.result);
+        }
+
+        fileReader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    //Image animation
     var imageDataArray = [];
     var canvasCount = 35;
     $("#start-btn").click(function(){

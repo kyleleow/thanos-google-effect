@@ -7,6 +7,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     background: #ddd;
   }
   .content {
@@ -19,9 +20,9 @@
     font-size: 36px;
     padding: 20px 40px 20px 80px ;
     margin-top: 30px;
-    border-radius: 10px;
-    background:url("thanos-logo.png") white 15px no-repeat;
+    background:url("asset/thanos-hand.png") white 15px no-repeat;
     background-size: 50px;
+    border: 1px solid grey;
   }
   .dust {
     position: absolute;
